@@ -60,5 +60,18 @@ describe("UniswapFlashSwapManager", function () {
 
   })
 
+  it("flash swap", async () => {
+
+    const BORROW_AMOUNT = BigNumber.from(balanceUsdcAfter);
+
+    tx = await usdc.transfer(uniswapFlashSwapManager.address, BORROW_AMOUNT)
+    await tx.wait();
+    console.log("uniswapFlashSwapManager funded: "+BORROW_AMOUNT.toString())
+
+    tx = await uniswapFlashSwapManager.testFlashSwap(USDC_ADDRESS, BORROW_AMOUNT)
+    await tx.wait();
+
+  })
+
   
 });
